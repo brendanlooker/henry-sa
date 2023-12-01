@@ -124,7 +124,7 @@ class Fetcher:
         resp = self.sdk.run_inline_query(
             "json",
             models.WriteQuery(
-                model="i__looker",
+                model="system__activity",
                 view="history",
                 fields=["history.query_run_count, query.model"],
                 filters={
@@ -177,7 +177,7 @@ class Fetcher:
         resp = self.sdk.run_inline_query(
             "json",
             models.WriteQuery(
-                model="i__looker",
+                model="system__activity",
                 view="history",
                 fields=["query.view", "history.query_run_count"],
                 filters={
@@ -225,20 +225,20 @@ class Fetcher:
         resp = self.sdk.run_inline_query(
             "json",
             models.WriteQuery(
-                model="i__looker",
+                model="system__activity",
                 view="history",
                 fields=[
                     "query.model",
                     "query.view",
-                    "query.formatted_fields",
-                    "query.formatted_filters",
+                    "query.fields",
+                    "query.filters",
                     "history.query_run_count",
                 ],
                 filters={
                     "history.created_date": self.timeframe,
                     "query.model": model.replace("_", "^_"),
                     "query.view": explore.replace("_", "^_") if explore else "",
-                    "query.formatted_fields": "-NULL",
+                    "query.fields": "-NULL",
                     "history.workspace_id": "production",
                 },
                 limit="5000",
@@ -249,7 +249,7 @@ class Fetcher:
         for row in data:
             model = row["query.model"]
             explore = row["query.view"]
-            fields = re.findall(r"(\w+\.\w+)", row["query.formatted_fields"])
+            fields = re.findall(r"(\w+\.\w+)", row["query.fields"])
             recorded = []
             for f in fields:
                 if used_fields.get(f):
