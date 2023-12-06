@@ -263,7 +263,7 @@ class Fetcher:
             # and a dimension/measure, it's listed in both query.formatted_fields
             # and query.formatted_filters. The recorded variable keeps track of
             # this, so that no double counting occurs.
-            filters = row["query.formatted_filters"]
+            filters = row["query.filters"]
             if filters:
                 parsed_filters = re.findall(r"(\w+\.\w+)+", filters)
                 for f in parsed_filters:
