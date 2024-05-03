@@ -1,6 +1,6 @@
 from typing import cast, Optional, List, Any
 
-from looker_sdk.sdk.api40 import models
+from looker_sdk.sdk.api40 import models40 as models
 from henry.modules import spinner
 from henry.modules import fetcher
 
